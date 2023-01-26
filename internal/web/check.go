@@ -10,29 +10,24 @@ import (
 func checkHandler(w http.ResponseWriter, r *http.Request) {
 
 	hash := r.URL.Query().Get("hash")
-	HashChan <- hash
 
-	ipAddress := readUserIP(r)
-	userAgent := r.UserAgent()
+	_, exist := HostsMap[hash]
+	if exist {
+		HashChan <- hash
 
-	log.Println("FROM IP:", ipAddress)
-	log.Println("USER-AGENT:", userAgent)
+		ipAddress := readUserIP(r)
+		userAgent := r.UserAgent()
 
-	for _, host := range AllHosts {
-		if hash == host.Hash {
+		log.Println("FROM IP:", ipAddress)
+		log.Println("USER-AGENT:", userAgent)
 
-			log.Println("CHECK!")
-			// log.Println(r)
+		w.WriteHeader(http.StatusOK)
+		_, err := w.Write([]byte("OK"))
+		check.IfError(err)
 
-			w.WriteHeader(http.StatusOK)
-			_, err := w.Write([]byte("OK"))
-			check.IfError(err)
-
-			return
-		}
+	} else {
+		w.WriteHeader(http.StatusNotFound)
 	}
-
-	w.WriteHeader(http.StatusNotFound)
 }
 
 func readUserIP(r *http.Request) string {
