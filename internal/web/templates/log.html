@@ -1,0 +1,31 @@
+{{ define "log" }}
+
+<body>
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <form action="/log/" method="post" class="input-group">
+                <input name="lines" value="all" type="hidden">
+                <button type="submit" class="btn btn-primary">Show all lines</button>
+            </form>
+        </div>
+        <div class="col">
+            <form action="/log/" method="post" class="input-group">
+                <input name="lines" type="text" placeholder="Number of lines">
+                <button type="submit" class="btn btn-primary">Show</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <samp>
+        {{ range .Themes }}
+            <br>{{ . }}
+        {{ end }}
+        </samp>
+    <br>
+    </div>
+    </div>
+        
+
+{{ template "footer" }}
+{{ end }}

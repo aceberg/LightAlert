@@ -1,0 +1,79 @@
+{{ define "config" }}
+
+<body>
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col">
+        <table class="table">
+            <form action="/save_config/" method="post">
+                <tr>
+                    <td>DB Path</td>
+                    <td><input name="db" type="text" class="form-control" value="{{ .Config.DB }}"></td>
+                </tr>
+                <tr>
+                    <td>Host</td>
+                    <td><input name="host" type="text" class="form-control" value="{{ .Config.Host }}"></td>
+                </tr>
+                <tr>
+                    <td>Port</td>
+                    <td><input name="port" type="text" class="form-control" value="{{ .Config.Port }}"></td>
+                </tr>
+                <tr>
+                    <td>Theme</td>
+                    <td><select name="theme" class="form-select">
+                        <option selected>{{ .Config.Theme }}</option>
+                        {{ range .Themes }}
+                            <option value="{{ . }}">{{ . }}</option>
+                        {{ end }}
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Show</td>
+                    <td><input name="show" type="text" class="form-control" value="{{ .Config.Show }}"></td>
+                </tr>
+                <tr>
+                    <td>Yaml Path</td>
+                    <td><input name="yamlpath" type="text" class="form-control" value="{{ .Config.YamlPath }}"></td>
+                </tr>
+                <tr>
+                    <td>Key Path</td>
+                    <td><input name="keypath" type="text" class="form-control" value="{{ .Config.KeyPath }}"></td>
+                </tr>
+                <tr>
+                    <td>Log Path</td>
+                    <td><input name="logpath" type="text" class="form-control" value="{{ .Config.LogPath }}"></td>
+                </tr>
+                <tr>
+                    <td>Interval</td>
+                    <td><input name="interval" type="text" class="form-control" value="{{ .Config.Interval }}"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="btn btn-primary">Save</button></td>
+                    <td></td>
+                </tr>
+            </form>
+        </table>
+        </div>
+        <div class="col">
+            <div class="alert alert-info" role="alert">
+                <p>Current version: {{ .File }}</p>
+            </div>
+            <div class="alert alert-info" role="alert">
+                <p>● After changing <b>DB Path</b>, <b>Host</b>, <b>Port</b>, <b>Log Path</b> or <b>Yaml Path</b> you need to restart the app</p>
+                <p>● <b>Show</b> - how many lines to show on index and log page</p>
+                <p>● <b>Yaml Path</b> - path to `repo.yaml` or other file, where git repo is described</p>
+                <p>● <b>Key Path</b> - path to ssh keys directory</p>
+                <p>● <b>Log Path</b> - path to log file</p>
+                <p>● <b>Interval</b> - interval between repo scans (s, m, h)</p>
+            </div>
+            <br>
+            <form action="/clear/" method="post">
+                <button type="submit" class="btn btn-danger">Clear table</button>
+            </form>
+        </div>
+    </div>
+    </div>
+        
+
+{{ template "footer" }}
+{{ end }}
