@@ -1,6 +1,8 @@
 package check
 
 import (
+	"strconv"
+
 	"github.com/aceberg/LightAlert/internal/models"
 )
 
@@ -9,8 +11,15 @@ func ToMap(allHosts []models.Host) map[string]models.Host {
 
 	m := make(map[string]models.Host)
 
-	for _, oneHost := range allHosts {
-		m[oneHost.Hash] = oneHost
+	for _, host := range allHosts {
+
+		tSec, err := TimeToSec(host.Interval)
+		IfError(err)
+
+		host.IntSec, _ = strconv.Atoi(tSec)
+		host.Active = false
+
+		m[host.Hash] = host
 	}
 
 	return m

@@ -10,8 +10,6 @@ import (
 // Start watching hosts
 func Start(hostsMap map[string]models.Host, hashChan chan string, quit chan bool) {
 
-	// hostMap := make(map[string]models.Host)
-
 	// Endless cycle with timeout
 	for {
 		select {
@@ -19,14 +17,29 @@ func Start(hostsMap map[string]models.Host, hashChan chan string, quit chan bool
 			return
 		case hash := <-hashChan:
 
-			_, exist := hostsMap[hash]
-			if exist {
-				log.Println("Host in map, update LastSeen")
-			}
-		default:
-			log.Println("CHANNEL EMPTY")
+			host := hostsMap[hash]
+			host.LastSeen = time.Now()
+			host.Active = true
+			hostsMap[hash] = host
 
-			time.Sleep(time.Duration(2) * time.Second) // Cycle to check if quit
+		default:
+			nowDate := time.Now()
+
+			for hash, host := range hostsMap {
+				if host.Active {
+					lastDate := host.LastSeen
+					plusDate := lastDate.Add(time.Duration(host.IntSec) * time.Second)
+
+					if nowDate.After(plusDate) {
+						host.Active = false
+						hostsMap[hash] = host
+
+						log.Println("ALERT:", host)
+					}
+				}
+			}
+
+			time.Sleep(time.Duration(1) * time.Second) // Cycle to check if quit
 		}
 	}
 }

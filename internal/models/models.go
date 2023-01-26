@@ -1,5 +1,9 @@
 package models
 
+import (
+	"time"
+)
+
 // Conf - web gui config
 type Conf struct {
 	DB       string
@@ -13,13 +17,15 @@ type Conf struct {
 	Quit     chan bool
 }
 
-// Host - host from yaml file
+// Host - host for internal use
 type Host struct {
-	Name     string `yaml:"name"`
-	Hash     string `yaml:"hash"`
-	Interval string `yaml:"interval"`
-	LastSeen string
-	Alerts   []string `yaml:"alerts"`
+	Name     string
+	Hash     string
+	Interval string
+	Alerts   []string
+	LastSeen time.Time
+	IntSec   int
+	Active   bool
 }
 
 // GuiData - web gui data

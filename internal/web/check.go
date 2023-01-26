@@ -11,15 +11,14 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 
 	hash := r.URL.Query().Get("hash")
 
-	_, exist := HostsMap[hash]
+	host, exist := HostsMap[hash]
 	if exist {
 		HashChan <- hash
 
 		ipAddress := readUserIP(r)
 		userAgent := r.UserAgent()
 
-		log.Println("FROM IP:", ipAddress)
-		log.Println("USER-AGENT:", userAgent)
+		log.Println("INFO: checked from IP", ipAddress, "User-Agent", userAgent, "HOST", host)
 
 		w.WriteHeader(http.StatusOK)
 		_, err := w.Write([]byte("OK"))
