@@ -10,13 +10,15 @@ type Conf struct {
 	ConfPath string
 	LogPath  string
 	YamlPath string
+	Quit     chan bool
 }
 
-// Host - host to monitor
+// Host - host from yaml file
 type Host struct {
-	Name     string   `yaml:"name"`
-	Hash     string   `yaml:"hash"`
-	Interval string   `yaml:"interval"`
+	Name     string `yaml:"name"`
+	Hash     string `yaml:"hash"`
+	Interval string `yaml:"interval"`
+	LastSeen string
 	Alerts   []string `yaml:"alerts"`
 }
 

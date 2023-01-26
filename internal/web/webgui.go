@@ -7,6 +7,7 @@ import (
 	"github.com/aceberg/LightAlert/internal/check"
 	"github.com/aceberg/LightAlert/internal/conf"
 	"github.com/aceberg/LightAlert/internal/models"
+	"github.com/aceberg/LightAlert/internal/watch"
 )
 
 // Gui - start web server
@@ -22,6 +23,12 @@ func Gui(config models.Conf) {
 	oneHost.Name = "Test Host"
 	oneHost.Hash = "fSzPfpZLUtXZgcZw5eEc"
 	AllHosts = append(AllHosts, oneHost)
+
+	HostsMap = check.ToMap(AllHosts)
+
+	AppConfig.Quit = make(chan bool)
+	HashChan = make(chan string)
+	go watch.Start(HostsMap, HashChan, AppConfig.Quit)
 
 	log.Println("=================================== ")
 	log.Printf("Web GUI at http://%s", address)
