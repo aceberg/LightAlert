@@ -32,7 +32,11 @@ func Gui(config models.Conf) {
 	log.Println("=================================== ")
 
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/alert_add/", addAlertHandler)
+	http.HandleFunc("/alert_del/", delAlertHandler)
 	http.HandleFunc("/check/", checkHandler)
+	http.HandleFunc("/config/", configHandler)
+	http.HandleFunc("/save_config/", saveConfigHandler)
 	err := http.ListenAndServe(address, nil)
 	check.IfError(err)
 }
@@ -50,6 +54,10 @@ func mergeConfig(config models.Conf) models.Conf {
 	}
 
 	newConfig.Icon = Icon
+
+	if len(newConfig.AlertMap) == 0 {
+		newConfig.AlertMap = make(map[string]string)
+	}
 
 	return newConfig
 }

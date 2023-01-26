@@ -36,7 +36,7 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 						hostsMap[hash] = host
 
 						log.Println("ALERT:", host)
-						notify.Shoutrrr(host)
+						notify.Shoutrrr(host, conf)
 					}
 				}
 			}

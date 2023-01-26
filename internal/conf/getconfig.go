@@ -31,6 +31,7 @@ func Get(path string) models.Conf {
 	config.Theme, _ = viper.Get("THEME").(string)
 	config.LogPath, _ = viper.Get("LOGPATH").(string)
 	config.YamlPath, _ = viper.Get("YAMLPATH").(string)
+	config.AlertMap = viper.GetStringMapString("ALERTMAP")
 
 	return config
 }

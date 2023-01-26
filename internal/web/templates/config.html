@@ -28,24 +28,12 @@
                     </select></td>
                 </tr>
                 <tr>
-                    <td>Show</td>
-                    <td><input name="show" type="text" class="form-control" value="{{ .Config.Show }}"></td>
-                </tr>
-                <tr>
                     <td>Yaml Path</td>
                     <td><input name="yamlpath" type="text" class="form-control" value="{{ .Config.YamlPath }}"></td>
                 </tr>
                 <tr>
-                    <td>Key Path</td>
-                    <td><input name="keypath" type="text" class="form-control" value="{{ .Config.KeyPath }}"></td>
-                </tr>
-                <tr>
                     <td>Log Path</td>
                     <td><input name="logpath" type="text" class="form-control" value="{{ .Config.LogPath }}"></td>
-                </tr>
-                <tr>
-                    <td>Interval</td>
-                    <td><input name="interval" type="text" class="form-control" value="{{ .Config.Interval }}"></td>
                 </tr>
                 <tr>
                     <td><button type="submit" class="btn btn-primary">Save</button></td>
@@ -55,9 +43,6 @@
         </table>
         </div>
         <div class="col">
-            <div class="alert alert-info" role="alert">
-                <p>Current version: {{ .File }}</p>
-            </div>
             <div class="alert alert-info" role="alert">
                 <p>● After changing <b>DB Path</b>, <b>Host</b>, <b>Port</b>, <b>Log Path</b> or <b>Yaml Path</b> you need to restart the app</p>
                 <p>● <b>Show</b> - how many lines to show on index and log page</p>
@@ -71,6 +56,32 @@
                 <button type="submit" class="btn btn-danger">Clear table</button>
             </form>
         </div>
+    </div>
+    <div class="row">
+        <form action="/alert_add/" method="post" class="input-group">
+            <input name="name" type="text" class="form-control" placeholder="Name" style="max-width: 15%;">
+            <input name="url" type="text" class="form-control" placeholder="URL">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <br>
+        <table class="table table-striped">
+            <tr>
+                <th style="width: 5%;">Del</th>
+                <th>Name</th>
+                <th>URL</th>
+            </tr>
+            {{ range $key, $value := .Config.AlertMap }}
+            <tr>
+                <td>
+                    <a href="/alert_del?name={{ $key }}">
+                        <i class="bi bi-x-square"></i>
+                    </a>
+                </td>
+                <td>{{ $key }}</td>
+                <td>{{ $value }}</td>
+            </tr>
+            {{ end }}
+        </table>
     </div>
     </div>
         

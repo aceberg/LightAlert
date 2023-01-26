@@ -1,8 +1,34 @@
 {{ define "index"}}
 <body>
     <div class="container mt-3">
-        
+        <div class="row">
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th>Interval</th>
+                    <th>Alerts</th>
+                    <th>State</th>
+                </tr>
+                {{ range .Hosts }}
+                <tr>
+                    <td>
+                        <a href="/edit/?hash={{ .Hash }}">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </td>
+                    <td>{{ .Name }}</td>
+                    <td>
+                        <a href="http://{{ $.Config.Host }}:{{ $.Config.Port }}/check/?hash={{ .Hash }}" target="_blank">Check</a>
+                    </td>
+                    <td>{{ .Interval }}</td>
+                    <td>{{ .Alerts }}</td>
+                    <td>{{ .Active }}</td>
+                </tr>
+                {{ end }}
+            </table>
+        </div>
     </div>
-
 {{ template "footer" }}
 {{ end }}

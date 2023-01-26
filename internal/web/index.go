@@ -10,6 +10,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
 	guiData.Config = AppConfig
+	guiData.Hosts = AllHosts
 
 	execTemplate(w, "index", guiData)
 }

@@ -8,14 +8,18 @@ import (
 )
 
 // Shoutrrr - send message with shoutrrr
-func Shoutrrr(host models.Host) {
+func Shoutrrr(host models.Host, conf models.Conf) {
 	var err error
 
 	message := "Check " + host.Name + " is down"
 
-	for _, url := range host.Alerts {
+	for _, name := range host.Alerts {
 
-		err = shoutrrr.Send(url, message)
-		check.IfError(err)
+		url, exist := conf.AlertMap[name]
+
+		if exist {
+			err = shoutrrr.Send(url, message)
+			check.IfError(err)
+		}
 	}
 }

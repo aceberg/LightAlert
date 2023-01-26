@@ -34,4 +34,5 @@ type Host struct {
 type GuiData struct {
 	Config Conf
 	Themes []string
+	Hosts  []Host
 }
