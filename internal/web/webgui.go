@@ -23,8 +23,8 @@ func Gui(config models.Conf) {
 	log.Println("INFO: hosts:", AllHosts)
 
 	AppConfig.Quit = make(chan bool)
-	HashChan = make(chan string)
-	go watch.Start(HostsMap, HashChan, AppConfig.Quit)
+	AppConfig.HashChan = make(chan string)
+	go watch.Start(HostsMap, AppConfig)
 
 	address := AppConfig.Host + ":" + AppConfig.Port
 	log.Println("=================================== ")

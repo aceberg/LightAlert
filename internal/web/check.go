@@ -13,7 +13,7 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 
 	host, exist := HostsMap[hash]
 	if exist {
-		HashChan <- hash
+		AppConfig.HashChan <- hash
 
 		ipAddress := readUserIP(r)
 		userAgent := r.UserAgent()

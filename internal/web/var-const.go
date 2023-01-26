@@ -11,8 +11,6 @@ var (
 	AppConfig models.Conf
 	// AllHosts - all hosts
 	AllHosts []models.Host
-	// HashChan - channel
-	HashChan chan string
 	// HostsMap - map of all hosts
 	HostsMap map[string]models.Host
 	// TemplHTML - embed templates

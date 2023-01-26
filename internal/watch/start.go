@@ -5,17 +5,18 @@ import (
 	"time"
 
 	"github.com/aceberg/LightAlert/internal/models"
+	"github.com/aceberg/LightAlert/internal/notify"
 )
 
 // Start watching hosts
-func Start(hostsMap map[string]models.Host, hashChan chan string, quit chan bool) {
+func Start(hostsMap map[string]models.Host, conf models.Conf) {
 
 	// Endless cycle with timeout
 	for {
 		select {
-		case <-quit:
+		case <-conf.Quit:
 			return
-		case hash := <-hashChan:
+		case hash := <-conf.HashChan:
 
 			host := hostsMap[hash]
 			host.LastSeen = time.Now()
@@ -35,6 +36,7 @@ func Start(hostsMap map[string]models.Host, hashChan chan string, quit chan bool
 						hostsMap[hash] = host
 
 						log.Println("ALERT:", host)
+						notify.Shoutrrr(host)
 					}
 				}
 			}

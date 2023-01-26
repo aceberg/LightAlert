@@ -14,7 +14,9 @@ type Conf struct {
 	ConfPath string
 	LogPath  string
 	YamlPath string
+	AlertMap map[string]string
 	Quit     chan bool
+	HashChan chan string
 }
 
 // Host - host for internal use

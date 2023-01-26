@@ -47,6 +47,7 @@ func Write(config models.Conf) {
 	viper.Set("theme", config.Theme)
 	viper.Set("logpath", config.LogPath)
 	viper.Set("yamlpath", config.YamlPath)
+	viper.Set("alertmap", config.AlertMap)
 
 	err := viper.WriteConfig()
 	check.IfError(err)
