@@ -35,8 +35,11 @@ func Gui(config models.Conf) {
 	http.HandleFunc("/alert_add/", addAlertHandler)
 	http.HandleFunc("/alert_del/", delAlertHandler)
 	http.HandleFunc("/check/", checkHandler)
+	http.HandleFunc("/del_host/", delHostHandler)
+	http.HandleFunc("/edit/", editHandler)
 	http.HandleFunc("/config/", configHandler)
 	http.HandleFunc("/save_config/", saveConfigHandler)
+	http.HandleFunc("/save_host/", saveHostHandler)
 	err := http.ListenAndServe(address, nil)
 	check.IfError(err)
 }

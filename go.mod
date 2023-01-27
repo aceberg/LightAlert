@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/containrrr/shoutrrr v0.7.0
+	github.com/dchest/uniuri v1.2.0
 	github.com/spf13/viper v1.15.0
 	gopkg.in/yaml.v3 v3.0.1
 )
