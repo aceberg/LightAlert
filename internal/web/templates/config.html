@@ -69,6 +69,7 @@
                 <th style="width: 5%;">Del</th>
                 <th>Name</th>
                 <th>URL</th>
+                <th></th>
             </tr>
             {{ range $key, $value := .Config.AlertMap }}
             <tr>
@@ -79,6 +80,11 @@
                 </td>
                 <td>{{ $key }}</td>
                 <td>{{ $value }}</td>
+                <td>
+                    <a href="/alert_test?name={{ $key }}">
+                        <button class="btn btn-primary">Test</button>
+                    </a>
+                </td>
             </tr>
             {{ end }}
         </table>
