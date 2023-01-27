@@ -15,6 +15,10 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 	if exist {
 		AppConfig.HashChan <- hash
 
+		host.Active = true
+		HostsMap[hash] = host
+		AllHosts = check.ToStruct(HostsMap)
+
 		ipAddress := readUserIP(r)
 		userAgent := r.UserAgent()
 

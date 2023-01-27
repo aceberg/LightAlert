@@ -17,6 +17,7 @@ type Conf struct {
 	AlertMap map[string]string
 	Quit     chan bool
 	HashChan chan string
+	OffChan  chan string
 }
 
 // Host - host for internal use

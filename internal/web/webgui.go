@@ -24,7 +24,9 @@ func Gui(config models.Conf) {
 
 	AppConfig.Quit = make(chan bool)
 	AppConfig.HashChan = make(chan string)
+	AppConfig.OffChan = make(chan string)
 	go watch.Start(HostsMap, AppConfig)
+	go stateUpdate()
 
 	address := AppConfig.Host + ":" + AppConfig.Port
 	log.Println("=================================== ")
