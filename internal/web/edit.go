@@ -52,6 +52,7 @@ func saveHostHandler(w http.ResponseWriter, r *http.Request) {
 	if oneHost.Interval == "" {
 		oneHost.Interval = "1d"
 	}
+	oneHost.IntSec = check.TimeToSec(oneHost.Interval)
 
 	alertsSlice := strings.Split(alerts, " ")
 

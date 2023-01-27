@@ -7,19 +7,42 @@ import (
 	"github.com/aceberg/LightAlert/internal/models"
 )
 
-// Shoutrrr - send message with shoutrrr
-func Shoutrrr(host models.Host, conf models.Conf) {
+func send(name, message string, alertMap map[string]string) {
 	var err error
 
-	message := "Check " + host.Name + " is down"
+	url, exist := alertMap[name]
+	if exist {
+		err = shoutrrr.Send(url, "Light Alert: "+message)
+		check.IfError(err)
+	}
+}
+
+// Down - send Shoutrrr message when host is down
+func Down(host models.Host, alertMap map[string]string) {
+
+	message := "Check " + host.Name + " is DOWN"
 
 	for _, name := range host.Alerts {
 
-		url, exist := conf.AlertMap[name]
-
-		if exist {
-			err = shoutrrr.Send(url, message)
-			check.IfError(err)
-		}
+		send(name, message, alertMap)
 	}
+}
+
+// Up - send Shoutrrr message when host is up
+func Up(host models.Host, alertMap map[string]string) {
+
+	message := "Check " + host.Name + " is UP"
+
+	for _, name := range host.Alerts {
+
+		send(name, message, alertMap)
+	}
+}
+
+// Test - send test Shoutrrr message
+func Test(name string, alertMap map[string]string) {
+
+	message := "Test Alert for " + name
+
+	send(name, message, alertMap)
 }

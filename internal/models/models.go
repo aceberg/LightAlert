@@ -27,7 +27,7 @@ type Host struct {
 	Interval string
 	Alerts   []string
 	LastSeen time.Time
-	IntSec   int
+	IntSec   int64
 	Active   bool
 }
 

@@ -18,7 +18,11 @@
                     </td>
                     <td>{{ .Interval }}</td>
                     <td>{{ range .Alerts }}{{ . }} {{ end }}</td>
-                    <td>{{ .Active }}</td>
+                    {{ if .Active }}
+                        <td style="background-color: rgb(161, 245, 161)">Online</td>
+                    {{ else }}
+                        <td style="background-color: rgb(252, 162, 162)">Offline</td>
+                    {{ end }}
                 </tr>
                 {{ end }}
             </table>
