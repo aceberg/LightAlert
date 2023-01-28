@@ -6,6 +6,7 @@ import (
 
 	"github.com/aceberg/LightAlert/internal/check"
 	"github.com/aceberg/LightAlert/internal/conf"
+	"github.com/aceberg/LightAlert/internal/db"
 	"github.com/aceberg/LightAlert/internal/models"
 	"github.com/aceberg/LightAlert/internal/watch"
 	"github.com/aceberg/LightAlert/internal/yaml"
@@ -16,6 +17,8 @@ func Gui(config models.Conf) {
 	AppConfig = mergeConfig(config)
 
 	log.Println("INFO: starting web gui with", AppConfig.ConfPath)
+
+	db.Create(AppConfig.DB)
 
 	AllHosts = yaml.Read(AppConfig.YamlPath)
 	HostsMap = check.ToMap(AllHosts)

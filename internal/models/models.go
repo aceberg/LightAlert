@@ -30,9 +30,20 @@ type Host struct {
 	Active   bool
 }
 
+// Record - write check to DB
+type Record struct {
+	ID    int    `db:"ID"`
+	Date  string `db:"DATE"`
+	Name  string `db:"NAME"`
+	Hash  string `db:"HASH"`
+	IP    string `db:"IP"`
+	Agent string `db:"AGENT"`
+}
+
 // GuiData - web gui data
 type GuiData struct {
-	Config Conf
-	Themes []string
-	Hosts  []Host
+	Config  Conf
+	Themes  []string
+	Hosts   []Host
+	Records []Record
 }

@@ -1,10 +1,12 @@
 package web
 
 import (
-	"log"
 	"net/http"
+	"time"
 
 	"github.com/aceberg/LightAlert/internal/check"
+	"github.com/aceberg/LightAlert/internal/db"
+	"github.com/aceberg/LightAlert/internal/models"
 )
 
 func checkHandler(w http.ResponseWriter, r *http.Request) {
@@ -19,10 +21,14 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 		HostsMap[hash] = host
 		AllHosts = check.ToStruct(HostsMap)
 
-		ipAddress := readUserIP(r)
-		userAgent := r.UserAgent()
+		var rec models.Record
+		rec.Date = time.Now().Format("2006-01-02 15:04:05")
+		rec.Name = host.Name
+		rec.Hash = host.Hash
+		rec.IP = readUserIP(r)
+		rec.Agent = r.UserAgent()
 
-		log.Println("INFO: checked from IP", ipAddress, "User-Agent", userAgent, "HOST", host)
+		db.Insert(AppConfig.DB, rec)
 
 		w.WriteHeader(http.StatusOK)
 		_, err := w.Write([]byte("OK"))

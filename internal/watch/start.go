@@ -26,6 +26,7 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 				notify.Up(host, conf.AlertMap)
 				host.Active = true
 			}
+			log.Println("INFO: check from", host)
 			// Needs pause for host.LastSeen not be empty. WHY???
 			time.Sleep(time.Duration(1) * time.Second)
 			hostsMap[hash] = host
@@ -36,7 +37,6 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 			for hash, host := range hostsMap {
 
 				// log.Println("CHECKING:", host)
-
 				if host.Active {
 					lastDate := host.LastSeen
 					plusDate := lastDate.Add(time.Duration(host.IntSec) * time.Second)
@@ -52,7 +52,7 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 				}
 			}
 
-			time.Sleep(time.Duration(3) * time.Second) // Timeout
+			time.Sleep(time.Duration(1) * time.Second) // Timeout
 		}
 	}
 }
