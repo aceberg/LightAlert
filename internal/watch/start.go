@@ -11,6 +11,8 @@ import (
 // Start watching hosts
 func Start(hostsMap map[string]models.Host, conf models.Conf) {
 
+	log.Println("INFO: watching hosts", hostsMap)
+
 	// Endless cycle with timeout
 	for {
 		select {
@@ -22,22 +24,20 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 			host.LastSeen = time.Now()
 			if !host.Active {
 				notify.Up(host, conf.AlertMap)
+				host.Active = true
 			}
-			// log.Println("TIME:", host.LastSeen)
 			// Needs pause for host.LastSeen not be empty. WHY???
 			time.Sleep(time.Duration(1) * time.Second)
-			host.Active = true
 			hostsMap[hash] = host
 
-			// log.Println("NOW ACTIVE:", hostsMap)
 		default:
-			time.Sleep(time.Duration(1) * time.Second)
-
 			nowDate := time.Now()
 
 			for hash, host := range hostsMap {
+
+				// log.Println("CHECKING:", host)
+
 				if host.Active {
-					// log.Println("CHECK:", hostsMap)
 					lastDate := host.LastSeen
 					plusDate := lastDate.Add(time.Duration(host.IntSec) * time.Second)
 
@@ -51,6 +51,8 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 					}
 				}
 			}
+
+			time.Sleep(time.Duration(3) * time.Second) // Timeout
 		}
 	}
 }

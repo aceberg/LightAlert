@@ -20,13 +20,8 @@ func Gui(config models.Conf) {
 	AllHosts = yaml.Read(AppConfig.YamlPath)
 	HostsMap = check.ToMap(AllHosts)
 
-	log.Println("INFO: hosts:", AllHosts)
-
-	AppConfig.Quit = make(chan bool)
-	AppConfig.HashChan = make(chan string)
-	AppConfig.OffChan = make(chan string)
 	go watch.Start(HostsMap, AppConfig)
-	go stateUpdate()
+	go stateUpdate() // Update AllHosts.Active for index page
 
 	address := AppConfig.Host + ":" + AppConfig.Port
 	log.Println("=================================== ")
@@ -60,6 +55,10 @@ func mergeConfig(config models.Conf) models.Conf {
 	}
 
 	newConfig.Icon = Icon
+
+	newConfig.Quit = make(chan bool, 10)
+	newConfig.HashChan = make(chan string, 100)
+	newConfig.OffChan = make(chan string, 100)
 
 	if len(newConfig.AlertMap) == 0 {
 		newConfig.AlertMap = make(map[string]string)

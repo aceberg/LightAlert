@@ -17,10 +17,9 @@ func addAlertHandler(w http.ResponseWriter, r *http.Request) {
 
 		AppConfig.AlertMap[name] = url
 
-		close(AppConfig.Quit)
+		AppConfig.Quit <- true
 		conf.Write(AppConfig)
 
-		AppConfig.Quit = make(chan bool)
 		go watch.Start(HostsMap, AppConfig)
 	}
 
@@ -35,10 +34,9 @@ func delAlertHandler(w http.ResponseWriter, r *http.Request) {
 
 		delete(AppConfig.AlertMap, name)
 
-		close(AppConfig.Quit)
+		AppConfig.Quit <- true
 		conf.Write(AppConfig)
 
-		AppConfig.Quit = make(chan bool)
 		go watch.Start(HostsMap, AppConfig)
 	}
 

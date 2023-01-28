@@ -15,12 +15,6 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 
 	guiData.Config = AppConfig
 
-	// file, err := TemplHTML.ReadFile(TemplPath + "version")
-	// check.IfError(err)
-
-	// version := string(file)
-	// guiData.File = version[8:]
-
 	guiData.Themes = []string{"cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal", "litera", "lumen", "lux", "materia", "minty", "morph", "pulse", "quartz", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "vapor", "yeti", "zephyr"}
 
 	execTemplate(w, "config", guiData)
@@ -35,10 +29,8 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.YamlPath = r.FormValue("yamlpath")
 	AppConfig.LogPath = r.FormValue("logpath")
 
-	close(AppConfig.Quit)
+	AppConfig.Quit <- true
 	conf.Write(AppConfig)
-
-	AppConfig.Quit = make(chan bool)
 	go watch.Start(HostsMap, AppConfig)
 
 	http.Redirect(w, r, r.Header.Get("Referer"), 302)

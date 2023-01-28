@@ -67,11 +67,8 @@ func saveHostHandler(w http.ResponseWriter, r *http.Request) {
 	HostsMap[oneHost.Hash] = oneHost
 	AllHosts = check.ToStruct(HostsMap)
 
-	close(AppConfig.Quit)
-
+	AppConfig.Quit <- true
 	yaml.Write(AppConfig.YamlPath, AllHosts)
-
-	AppConfig.Quit = make(chan bool)
 	go watch.Start(HostsMap, AppConfig)
 
 	http.Redirect(w, r, "/", 302)
