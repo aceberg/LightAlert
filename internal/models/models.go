@@ -12,7 +12,6 @@ type Conf struct {
 	Theme    string
 	Icon     string
 	ConfPath string
-	LogPath  string
 	YamlPath string
 	AlertMap map[string]string
 	Quit     chan bool

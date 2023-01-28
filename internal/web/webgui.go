@@ -50,8 +50,8 @@ func mergeConfig(config models.Conf) models.Conf {
 	if config.YamlPath != "" {
 		newConfig.YamlPath = config.YamlPath
 	}
-	if config.LogPath != "" {
-		newConfig.LogPath = config.LogPath
+	if config.DB != "" {
+		newConfig.DB = config.DB
 	}
 
 	newConfig.Icon = Icon

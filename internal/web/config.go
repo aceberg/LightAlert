@@ -27,7 +27,6 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.Port = r.FormValue("port")
 	AppConfig.Theme = r.FormValue("theme")
 	AppConfig.YamlPath = r.FormValue("yamlpath")
-	AppConfig.LogPath = r.FormValue("logpath")
 
 	AppConfig.Quit <- true
 	conf.Write(AppConfig)

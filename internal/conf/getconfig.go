@@ -16,7 +16,6 @@ func Get(path string) models.Conf {
 	viper.SetDefault("PORT", "8846")
 	viper.SetDefault("THEME", "darkly")
 	viper.SetDefault("YAMLPATH", "/data/LightAlert/hosts.yaml")
-	viper.SetDefault("LOGPATH", "/data/LightAlert/LightAlert.log")
 
 	viper.SetConfigFile(path)
 	viper.SetConfigType("yaml")
@@ -29,7 +28,6 @@ func Get(path string) models.Conf {
 	config.Host, _ = viper.Get("HOST").(string)
 	config.Port, _ = viper.Get("PORT").(string)
 	config.Theme, _ = viper.Get("THEME").(string)
-	config.LogPath, _ = viper.Get("LOGPATH").(string)
 	config.YamlPath, _ = viper.Get("YAMLPATH").(string)
 	config.AlertMap = viper.GetStringMapString("ALERTMAP")
 
@@ -46,7 +44,6 @@ func Write(config models.Conf) {
 	viper.Set("host", config.Host)
 	viper.Set("port", config.Port)
 	viper.Set("theme", config.Theme)
-	viper.Set("logpath", config.LogPath)
 	viper.Set("yamlpath", config.YamlPath)
 	viper.Set("alertmap", config.AlertMap)
 
