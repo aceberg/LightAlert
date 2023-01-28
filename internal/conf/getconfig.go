@@ -14,7 +14,7 @@ func Get(path string) models.Conf {
 	viper.SetDefault("DB", "/data/LightAlert/sqlite.db")
 	viper.SetDefault("HOST", "0.0.0.0")
 	viper.SetDefault("PORT", "8846")
-	viper.SetDefault("THEME", "cerulean")
+	viper.SetDefault("THEME", "darkly")
 	viper.SetDefault("YAMLPATH", "/data/LightAlert/hosts.yaml")
 	viper.SetDefault("LOGPATH", "/data/LightAlert/LightAlert.log")
 
