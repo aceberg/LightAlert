@@ -36,6 +36,7 @@ func Gui(config models.Conf) {
 	http.HandleFunc("/alert_del/", delAlertHandler)
 	http.HandleFunc("/alert_test/", testAlertHandler)
 	http.HandleFunc("/check/", checkHandler)
+	http.HandleFunc("/clear/", clearHandler)
 	http.HandleFunc("/config/", configHandler)
 	http.HandleFunc("/del_host/", delHostHandler)
 	http.HandleFunc("/edit/", editHandler)

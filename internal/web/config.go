@@ -1,13 +1,13 @@
 package web
 
 import (
-	// "log"
+	"log"
 	"net/http"
 
 	"github.com/aceberg/LightAlert/internal/conf"
-	"github.com/aceberg/LightAlert/internal/watch"
-	// "github.com/aceberg/LightAlert/internal/db"
+	"github.com/aceberg/LightAlert/internal/db"
 	"github.com/aceberg/LightAlert/internal/models"
+	"github.com/aceberg/LightAlert/internal/watch"
 )
 
 func configHandler(w http.ResponseWriter, r *http.Request) {
@@ -35,11 +35,11 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.Header.Get("Referer"), 302)
 }
 
-// func clearHandler(w http.ResponseWriter, r *http.Request) {
+func clearHandler(w http.ResponseWriter, r *http.Request) {
 
-// 	log.Println("INFO: deleting all plays from DB")
+	log.Println("INFO: deleting all records from DB")
 
-// 	db.Clear(AppConfig.DB)
+	db.Clear(AppConfig.DB)
 
-// 	http.Redirect(w, r, r.Header.Get("Referer"), 302)
-// }
+	http.Redirect(w, r, r.Header.Get("Referer"), 302)
+}
