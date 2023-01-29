@@ -13,8 +13,5 @@ func logHandler(w http.ResponseWriter, r *http.Request) {
 	guiData.Config = AppConfig
 	guiData.Records = db.Select(AppConfig.DB)
 
-	guiData.Themes = append([]string{}, OkIcon)
-	guiData.Themes = append(guiData.Themes, ErrIcon)
-
 	execTemplate(w, "log", guiData)
 }
