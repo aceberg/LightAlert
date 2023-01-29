@@ -3,17 +3,18 @@ package web
 import (
 	"net/http"
 
+	"github.com/aceberg/LightAlert/internal/db"
 	"github.com/aceberg/LightAlert/internal/models"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func logHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 
 	guiData.Config = AppConfig
-	guiData.Hosts = AllHosts
+	guiData.Records = db.Select(AppConfig.DB)
 
 	guiData.Themes = append([]string{}, OkIcon)
 	guiData.Themes = append(guiData.Themes, ErrIcon)
 
-	execTemplate(w, "index", guiData)
+	execTemplate(w, "log", guiData)
 }

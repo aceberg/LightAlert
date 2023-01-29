@@ -38,6 +38,7 @@ type Record struct {
 	Hash  string `db:"HASH"`
 	IP    string `db:"IP"`
 	Agent string `db:"AGENT"`
+	State string `db:"STATE"`
 }
 
 // GuiData - web gui data

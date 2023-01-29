@@ -2,28 +2,31 @@
 
 <body>
     <div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <form action="/log/" method="post" class="input-group">
-                <input name="lines" value="all" type="hidden">
-                <button type="submit" class="btn btn-primary">Show all lines</button>
-            </form>
-        </div>
-        <div class="col">
-            <form action="/log/" method="post" class="input-group">
-                <input name="lines" type="text" placeholder="Number of lines">
-                <button type="submit" class="btn btn-primary">Show</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <samp>
-        {{ range .Themes }}
-            <br>{{ . }}
-        {{ end }}
-        </samp>
-    <br>
-    </div>
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Address</th>
+                <th>User Agent</th>
+                <th>State</th>
+            </tr>
+            {{ range .Records }}
+            <tr>
+                <td>{{ .ID }}</td>
+                <td>{{ .Name }}</td>
+                <td>{{ .Date }}</td>
+                <td>{{ .IP }}</td>
+                <td>{{ .Agent }}</td>
+                <td>{{ if eq .State "ok" }}
+                    <img src="data:image/png;base64, {{ index $.Themes 0 }}" width="20"/>
+                    {{ else }}
+                    <img src="data:image/png;base64, {{ index $.Themes 1 }}" width="20"/>
+                    {{ end }}
+                </td>
+            </tr>
+            {{ end }}
+        </table>
     </div>
         
 

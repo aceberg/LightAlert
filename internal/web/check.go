@@ -27,6 +27,7 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 		rec.Hash = host.Hash
 		rec.IP = readUserIP(r)
 		rec.Agent = r.UserAgent()
+		rec.State = "ok"
 
 		db.Insert(AppConfig.DB, rec)
 

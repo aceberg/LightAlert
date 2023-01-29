@@ -18,11 +18,13 @@
                     </td>
                     <td>{{ .Interval }}</td>
                     <td>{{ range .Alerts }}{{ . }} {{ end }}</td>
+                    <td>
                     {{ if .Active }}
-                        <td style="background-color: rgb(161, 245, 161)">Online</td>
+                    <img src="data:image/png;base64, {{ index $.Themes 0 }}" width="20"/>
                     {{ else }}
-                        <td style="background-color: rgb(252, 162, 162)">Offline</td>
+                    <img src="data:image/png;base64, {{ index $.Themes 1 }}" width="20"/>
                     {{ end }}
+                    </td>
                 </tr>
                 {{ end }}
             </table>

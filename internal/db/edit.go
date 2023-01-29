@@ -15,7 +15,8 @@ func Create(path string) {
 		"NAME"		TEXT,
 		"HASH"		TEXT,
 		"IP"		TEXT,
-		"AGENT"		TEXT
+		"AGENT"		TEXT,
+		"STATE"		TEXT
 	);`
 	exec(path, sqlStatement)
 }
@@ -23,13 +24,13 @@ func Create(path string) {
 // Insert - insert one rec into DB
 func Insert(path string, rec models.Record) {
 
-	sqlStatement := `INSERT INTO records (DATE, NAME, HASH, IP, AGENT) 
-	VALUES ('%s','%s','%s','%s','%s');`
+	sqlStatement := `INSERT INTO records (DATE, NAME, HASH, IP, AGENT, STATE) 
+	VALUES ('%s','%s','%s','%s','%s','%s');`
 
 	rec.Name = quoteStr(rec.Name)
 	rec.Agent = quoteStr(rec.Agent)
 
-	sqlStatement = fmt.Sprintf(sqlStatement, rec.Date, rec.Name, rec.Hash, rec.IP, rec.Agent)
+	sqlStatement = fmt.Sprintf(sqlStatement, rec.Date, rec.Name, rec.Hash, rec.IP, rec.Agent, rec.State)
 
 	exec(path, sqlStatement)
 }
