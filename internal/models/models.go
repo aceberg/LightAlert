@@ -49,4 +49,5 @@ type GuiData struct {
 	Themes  []string
 	Hosts   []Host
 	Records []Record
+	Len     int
 }

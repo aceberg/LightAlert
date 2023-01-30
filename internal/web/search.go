@@ -3,35 +3,26 @@ package web
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/aceberg/LightAlert/internal/check"
 	"github.com/aceberg/LightAlert/internal/models"
 )
 
-func logHandler(w http.ResponseWriter, r *http.Request) {
+func searchHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 	var filteredRecords []models.Record
 
-	name := r.URL.Query().Get("name")
-	state := r.URL.Query().Get("state")
-	showStr := r.URL.Query().Get("show")
+	search := r.URL.Query().Get("search")
 
-	if name == "" && state == "" {
-		filteredRecords = LogRecords
-	} else {
-		for _, rec := range LogRecords {
-			if (state == "" && rec.Name == name) || (name == "" && rec.State == state) || (rec.Name == name && rec.State == state) {
-				filteredRecords = append(filteredRecords, rec)
-			}
+	for _, rec := range LogRecords {
+		if inString(rec.Name, search) || inString(rec.Date, search) || inString(rec.IP, search) || inString(rec.Agent, search) {
+			filteredRecords = append(filteredRecords, rec)
 		}
 	}
 
 	guiData.Config = AppConfig
 	guiData.Len = len(filteredRecords)
-
-	if showStr != "" {
-		AppConfig.Show = showStr
-	}
 
 	show, err := strconv.Atoi(AppConfig.Show)
 
@@ -46,4 +37,11 @@ func logHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	execTemplate(w, "log", guiData)
+}
+
+func inString(str1 string, str2 string) bool {
+	return strings.Contains(
+		strings.ToLower(str1),
+		strings.ToLower(str2),
+	)
 }
