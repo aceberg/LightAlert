@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/aceberg/LightAlert/internal/check"
-	"github.com/aceberg/LightAlert/internal/db"
 	"github.com/aceberg/LightAlert/internal/models"
 )
 
@@ -29,7 +28,7 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 		rec.Agent = r.UserAgent()
 		rec.State = "ok"
 
-		db.Insert(AppConfig.DB, rec)
+		AppConfig.RecChan <- rec
 
 		w.WriteHeader(http.StatusOK)
 		_, err := w.Write([]byte("OK"))

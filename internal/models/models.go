@@ -9,6 +9,7 @@ type Conf struct {
 	DB       string
 	Host     string
 	Port     string
+	Show     string
 	Theme    string
 	Icon     string
 	ConfPath string
@@ -17,6 +18,7 @@ type Conf struct {
 	Quit     chan bool
 	HashChan chan string
 	OffChan  chan string
+	RecChan  chan Record
 }
 
 // Host - host for internal use

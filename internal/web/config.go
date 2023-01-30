@@ -25,6 +25,7 @@ func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 	AppConfig.DB = r.FormValue("db")
 	AppConfig.Host = r.FormValue("host")
 	AppConfig.Port = r.FormValue("port")
+	AppConfig.Show = r.FormValue("show")
 	AppConfig.Theme = r.FormValue("theme")
 	AppConfig.YamlPath = r.FormValue("yamlpath")
 

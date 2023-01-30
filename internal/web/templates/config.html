@@ -19,6 +19,10 @@
                     <td><input name="port" type="text" class="form-control" value="{{ .Config.Port }}"></td>
                 </tr>
                 <tr>
+                    <td>Show</td>
+                    <td><input name="show" type="text" class="form-control" value="{{ .Config.Show }}"></td>
+                </tr>
+                <tr>
                     <td>Theme</td>
                     <td><select name="theme" class="form-select">
                         <option selected>{{ .Config.Theme }}</option>
@@ -40,12 +44,10 @@
         </div>
         <div class="col">
             <div class="alert alert-info" role="alert">
-                <p>● After changing <b>DB Path</b>, <b>Host</b>, <b>Port</b>, <b>Log Path</b> or <b>Yaml Path</b> you need to restart the app</p>
-                <p>● <b>Show</b> - how many lines to show on index and log page</p>
-                <p>● <b>Yaml Path</b> - path to `repo.yaml` or other file, where git repo is described</p>
-                <p>● <b>Key Path</b> - path to ssh keys directory</p>
-                <p>● <b>Log Path</b> - path to log file</p>
-                <p>● <b>Interval</b> - interval between repo scans (s, m, h)</p>
+                <p>● After changing <b>DB Path</b>, <b>Host</b>, <b>Port</b> or <b>Yaml Path</b> you need to restart the app</p>
+                <p>● <b>Show</b> - how many lines to show on log page</p>
+                <p>● <b>Yaml Path</b> - path to `hosts.yaml` or other file, where monitored hosts are described</p>
+                <p>● <b>Alerts</b> can send notifications to Discord, Email, Gotify, Telegram and other services. Just put Name and URL in the fields below. <a href="https://containrrr.dev/shoutrrr/v0.5/services/overview/" target="_blank">Link to documentation.</a>
             </div>
             <br>
             <form action="/clear/" method="post">
@@ -54,6 +56,7 @@
         </div>
     </div>
     <div class="row">
+        <h5>Alerts</h5>
         <form action="/alert_add/" method="post" class="input-group">
             <input name="name" type="text" class="form-control" placeholder="Name" style="max-width: 15%;">
             <input name="url" type="text" class="form-control" placeholder="URL">

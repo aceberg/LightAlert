@@ -4,7 +4,6 @@
     <div class="container mt-5">
         <table class="table table-striped">
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Date</th>
                 <th>Address</th>
@@ -13,8 +12,7 @@
             </tr>
             {{ range .Records }}
             <tr>
-                <td>{{ .ID }}</td>
-                <td>{{ .Name }}</td>
+                <td><a href="/edit/?hash={{ .Hash }}">{{ .Name }}</a></td>
                 <td>{{ .Date }}</td>
                 <td>{{ .IP }}</td>
                 <td>{{ .Agent }}</td>

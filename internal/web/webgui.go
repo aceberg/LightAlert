@@ -19,6 +19,7 @@ func Gui(config models.Conf) {
 	log.Println("INFO: starting web gui with", AppConfig.ConfPath)
 
 	db.Create(AppConfig.DB)
+	LogRecords = db.Select(AppConfig.DB)
 
 	AllHosts = yaml.Read(AppConfig.YamlPath)
 	HostsMap = check.ToMap(AllHosts)
@@ -64,6 +65,7 @@ func mergeConfig(config models.Conf) models.Conf {
 	newConfig.Quit = make(chan bool, 10)
 	newConfig.HashChan = make(chan string, 100)
 	newConfig.OffChan = make(chan string, 100)
+	newConfig.RecChan = make(chan models.Record, 100)
 
 	if len(newConfig.AlertMap) == 0 {
 		newConfig.AlertMap = make(map[string]string)

@@ -13,6 +13,8 @@ var (
 	AllHosts []models.Host
 	// HostsMap - map of all hosts
 	HostsMap map[string]models.Host
+	// LogRecords - records from DB
+	LogRecords []models.Record
 	// TemplHTML - embed templates
 	//
 	//go:embed templates/*

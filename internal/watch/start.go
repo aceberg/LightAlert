@@ -4,7 +4,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/aceberg/LightAlert/internal/db"
 	"github.com/aceberg/LightAlert/internal/models"
 	"github.com/aceberg/LightAlert/internal/notify"
 )
@@ -48,13 +47,6 @@ func Start(hostsMap map[string]models.Host, conf models.Conf) {
 						hostsMap[hash] = host
 
 						log.Println("ALERT:", host)
-
-						var rec models.Record
-						rec.Date = time.Now().Format("2006-01-02 15:04:05")
-						rec.Name = host.Name
-						rec.Hash = host.Hash
-						rec.State = "alert"
-						db.Insert(conf.DB, rec)
 
 						notify.Down(host, conf.AlertMap)
 					}
