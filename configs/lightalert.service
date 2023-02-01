@@ -1,0 +1,12 @@
+[Unit]
+Description=lightalert
+Documentation=https://github.com/aceberg/LightAlert
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/lightalert -c /etc/lightalert/config.yaml -h /etc/lightalert/hosts.yaml -d /etc/lightalert/sqlite.db
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
