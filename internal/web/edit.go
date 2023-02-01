@@ -1,21 +1,20 @@
 package web
 
 import (
-	"log"
+	// "log"
 	"net/http"
 	"strings"
 
 	"github.com/dchest/uniuri"
 
-	"github.com/aceberg/LightAlert/internal/check"
+	// "github.com/aceberg/LightAlert/internal/check"
 	"github.com/aceberg/LightAlert/internal/models"
-	"github.com/aceberg/LightAlert/internal/watch"
-	"github.com/aceberg/LightAlert/internal/yaml"
 )
 
 func editHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 	var oneHost models.Host
+	var recNext models.Record
 
 	guiData.Config = AppConfig
 
@@ -34,59 +33,23 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 		oneHost = HostsMap[hash]
 		alerts := strings.Join(oneHost.Alerts, " ")
 		oneHost.Alerts = append([]string{}, alerts)
+
+		recNext = models.Record{}
+		for _, rec := range LogRecords {
+			if rec.Hash == hash && rec.State == "ok" {
+				recNext = rec
+			}
+			if rec.Hash == hash && rec.State == "alert" {
+				if recNext != (models.Record{}) {
+					guiData.Records = append(guiData.Records, recNext)
+				}
+				guiData.Records = append(guiData.Records, rec)
+				recNext = models.Record{}
+			}
+		}
 	}
 
 	guiData.Hosts = append(guiData.Hosts, oneHost)
 
 	execTemplate(w, "edit", guiData)
-}
-
-func saveHostHandler(w http.ResponseWriter, r *http.Request) {
-	var oneHost models.Host
-
-	oneHost.Name = r.FormValue("name")
-	oneHost.Hash = r.FormValue("hash")
-	oneHost.Interval = r.FormValue("interval")
-	alerts := r.FormValue("alerts")
-
-	if oneHost.Interval == "" {
-		oneHost.Interval = "1d"
-	}
-	oneHost.IntSec = check.TimeToSec(oneHost.Interval)
-
-	alertsSlice := strings.Split(alerts, " ")
-
-	for _, a := range alertsSlice {
-		if a != "" {
-			oneHost.Alerts = append(oneHost.Alerts, a)
-		}
-	}
-
-	log.Println("INFO: saving host", oneHost)
-
-	HostsMap[oneHost.Hash] = oneHost
-	AllHosts = check.ToStruct(HostsMap)
-
-	AppConfig.Quit <- true
-	yaml.Write(AppConfig.YamlPath, AllHosts)
-	go watch.Start(HostsMap, AppConfig)
-
-	http.Redirect(w, r, "/", 302)
-}
-
-func delHostHandler(w http.ResponseWriter, r *http.Request) {
-
-	hash := r.FormValue("hash")
-
-	delete(HostsMap, hash)
-	AllHosts = check.ToStruct(HostsMap)
-
-	close(AppConfig.Quit)
-
-	yaml.Write(AppConfig.YamlPath, AllHosts)
-
-	AppConfig.Quit = make(chan bool)
-	go watch.Start(HostsMap, AppConfig)
-
-	http.Redirect(w, r, "/", 302)
 }

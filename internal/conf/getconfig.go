@@ -15,7 +15,7 @@ func Get(path string) models.Conf {
 	viper.SetDefault("HOST", "0.0.0.0")
 	viper.SetDefault("PORT", "8846")
 	viper.SetDefault("SHOW", "25")
-	viper.SetDefault("THEME", "darkly")
+	viper.SetDefault("THEME", "superhero")
 	viper.SetDefault("YAMLPATH", "/data/LightAlert/hosts.yaml")
 
 	viper.SetConfigFile(path)

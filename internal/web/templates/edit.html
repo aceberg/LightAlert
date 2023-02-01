@@ -26,17 +26,57 @@
                     <tr>
                         <td><button type="submit" class="btn btn-primary">Save</button></td></form>
                         <td>
-                            <form action="/del_host/" method="post">
-                                <input name="hash" type="hidden" class="form-control" value="{{ .Hash }}">
-                                <button type="submit" class="btn btn-danger">Delete host</button>
-                            </form>
                         </td>
                     </tr>
                     </form>
                     {{ end }}
                 </table>
             </div>
+            <div class="col">
+                {{ range .Hosts }}
+                <div class="card">
+                    <div class="card-body">
+                        <samp>
+                            curl "http://{{ $.Config.Host }}:{{ $.Config.Port }}/check/?hash={{ .Hash }}"
+                        </samp>
+                    </div>
+                  </div>
+                <br>
+                <div class="alert alert-info" role="alert">
+                    <p>● To activate host add the URL above to your cron script</p>
+                    <p>● <b>Alerts</b> - names of alerts from <a href="/config/">Config</a> page (space separated)</p>
+                </div>
+                <br>
+                <form action="/del_host/" method="post">
+                    <input name="hash" type="hidden" class="form-control" value="{{ .Hash }}">
+                    <button type="submit" class="btn btn-danger">Delete host</button>
+                </form>
+                {{ end }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
             <div class="col"></div>
+            <div class="col">
+                <h5>Alerts history</h5>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Date</th>
+                        <th>State</th>
+                    </tr>
+                    {{ range .Records }}
+                    <tr>
+                        <td>{{ .Date }}</td>
+                        <td>{{ if eq .State "ok" }}
+                            <i class="bi bi-check-circle-fill" style="color:greenyellow;"></i>
+                            {{ else }}
+                            <i class="bi bi-dash-circle-fill" style="color:red;"></i>
+                            {{ end }}
+                        </td>
+                    </tr>
+                    {{ end }}
+                </table>
+            </div>
         </div>
     </div>
 {{ template "footer" }}
