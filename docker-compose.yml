@@ -1,0 +1,17 @@
+version: "3"
+services:
+  gans:
+    image: aceberg/lightalert
+    restart: unless-stopped
+    ports:
+    - 8846:8846
+    volumes:
+    - ~/.dockerdata/LightAlert:/data/LightAlert       # app data
+    environment:
+      TZ: Asia/Novosibirsk                # required: needs your TZ for correct time
+      DB: "/data/LightAlert/sqlite.db"    # optional, default: /data/LightAlert/sqlite.db
+      HOST: "0.0.0.0"                     # optional, default: 0.0.0.0
+      PORT: "8846"                        # optional, default: 8846
+      THEME: "superhero"                  # optional, default: superhero
+      SHOW: "25"                          # optional, default: 25
+      YAMLPATH: "/data/LightAlert/hosts.yaml"    # optional, default: /data/LightAlert/hosts.yaml

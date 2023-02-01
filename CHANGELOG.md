@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Filter and search
 - Alerts stat on edit page
 - Binary and Deb package
+- docker-compose
 
 ## [0.1.1] - 2023-01-28
 ### Added
