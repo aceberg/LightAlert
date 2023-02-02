@@ -18,6 +18,8 @@ func stateUpdate() {
 
 	// Endless cycle with timeout
 	for {
+		now := time.Now()
+
 		select {
 		case hash := <-AppConfig.OffChan:
 			host := HostsMap[hash]
@@ -27,7 +29,7 @@ func stateUpdate() {
 			AllHosts = check.ToStruct(HostsMap)
 
 			rec := models.Record{}
-			rec.Date = time.Now().Format("2006-01-02 15:04:05")
+			rec.Date = now.Format("2006-01-02 15:04:05")
 			rec.Name = host.Name
 			rec.Hash = host.Hash
 			rec.State = "alert"
@@ -53,10 +55,7 @@ func stateUpdate() {
 			days, err := strconv.Atoi(AppConfig.DelOld)
 			check.IfError(err)
 
-			nowDate := time.Now()
-			minusDate := nowDate.Add(time.Hour * -24 * time.Duration(days))
-
-			log.Println("NOW:", nowDate, "MINUS", minusDate)
+			minusDate := now.Add(time.Hour * -24 * time.Duration(days))
 
 			for _, rec := range LogRecords {
 				date, _ := time.Parse("2006-01-02 15:04:05", rec.Date)
@@ -67,9 +66,10 @@ func stateUpdate() {
 			}
 
 			LogRecords = db.Select(AppConfig.DB)
+			time.Sleep(time.Duration(1) * time.Second)
 
 		default:
-			nowDay = time.Now().Day() // Delete old records once a day
+			nowDay = now.Day() // Delete old records once a day
 			if nowDay != lastDay {
 				lastDay = nowDay
 				delOld <- true

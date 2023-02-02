@@ -37,9 +37,10 @@ Configuration can be done through config file or environment variables
 | Variable  | Description | Default |
 | --------  | ----------- | ------- |
 | DB        | Path to Database | /data/LightAlert/sqlite.db |
+| DELOLD | Delete records older than (days) | 120 |
 | HOST | Listen address | 0.0.0.0 |
 | PORT   | Port for web GUI | 8846 |
-| THEME | Any theme name from https://bootswatch.com in lowcase | superhero |
+| THEME | Any theme name from https://bootswatch.com in lowcase | darkly |
 | SHOW | How many lines to show on index page | 25 |
 | YAMLPATH | Path to hosts yaml file | /data/LightAlert/hosts.yaml |
 | TZ | Set your timezone for correct time | "" |

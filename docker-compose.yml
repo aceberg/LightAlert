@@ -10,8 +10,9 @@ services:
     environment:
       TZ: Asia/Novosibirsk                # required: needs your TZ for correct time
       DB: "/data/LightAlert/sqlite.db"    # optional, default: /data/LightAlert/sqlite.db
+      DELOLD: "120"                       # optional, default: 120
       HOST: "0.0.0.0"                     # optional, default: 0.0.0.0
       PORT: "8846"                        # optional, default: 8846
-      THEME: "superhero"                  # optional, default: superhero
+      THEME: "darkly"                     # optional, default: darkly
       SHOW: "25"                          # optional, default: 25
       YAMLPATH: "/data/LightAlert/hosts.yaml"    # optional, default: /data/LightAlert/hosts.yaml
