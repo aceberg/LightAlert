@@ -1,6 +1,8 @@
 package web
 
 import (
+	"log"
+	"strconv"
 	"time"
 
 	"github.com/aceberg/LightAlert/internal/check"
@@ -9,8 +11,10 @@ import (
 )
 
 func stateUpdate() {
-	var rec models.Record
 	var recSlice []models.Record
+	var nowDay, lastDay int
+
+	delOld := make(chan bool, 10)
 
 	// Endless cycle with timeout
 	for {
@@ -22,7 +26,7 @@ func stateUpdate() {
 
 			AllHosts = check.ToStruct(HostsMap)
 
-			rec = models.Record{}
+			rec := models.Record{}
 			rec.Date = time.Now().Format("2006-01-02 15:04:05")
 			rec.Name = host.Name
 			rec.Hash = host.Hash
@@ -43,7 +47,34 @@ func stateUpdate() {
 
 			time.Sleep(time.Duration(1) * time.Second)
 
+		case <-delOld:
+			log.Println("INFO: deleting records older than", AppConfig.DelOld, "days from DB")
+
+			days, err := strconv.Atoi(AppConfig.DelOld)
+			check.IfError(err)
+
+			nowDate := time.Now()
+			minusDate := nowDate.Add(time.Hour * -24 * time.Duration(days))
+
+			log.Println("NOW:", nowDate, "MINUS", minusDate)
+
+			for _, rec := range LogRecords {
+				date, _ := time.Parse("2006-01-02 15:04:05", rec.Date)
+				if minusDate.After(date) {
+					log.Println("DELETING:", rec)
+					db.Delete(AppConfig.DB, rec.ID)
+				}
+			}
+
+			LogRecords = db.Select(AppConfig.DB)
+
 		default:
+			nowDay = time.Now().Day() // Delete old records once a day
+			if nowDay != lastDay {
+				lastDay = nowDay
+				delOld <- true
+			}
+
 			time.Sleep(time.Duration(1) * time.Second)
 		}
 	}

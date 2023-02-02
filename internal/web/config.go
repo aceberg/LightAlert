@@ -23,6 +23,7 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 func saveConfigHandler(w http.ResponseWriter, r *http.Request) {
 
 	AppConfig.DB = r.FormValue("db")
+	AppConfig.DelOld = r.FormValue("delold")
 	AppConfig.HName = r.FormValue("hname")
 	AppConfig.Host = r.FormValue("host")
 	AppConfig.Port = r.FormValue("port")

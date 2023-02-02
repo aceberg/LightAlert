@@ -7,6 +7,7 @@ import (
 // Conf - web gui config
 type Conf struct {
 	DB       string
+	DelOld   string
 	HName    string
 	Host     string
 	Port     string

@@ -5,7 +5,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/lightalert -c /etc/lightalert/config.yaml -h /etc/lightalert/hosts.yaml -d /etc/lightalert/sqlite.db
+ExecStart=/usr/bin/lightalert -c /etc/lightalert/config.yaml -h /etc/lightalert/hosts.yaml -d /var/lib/lightalert/sqlite.db
 Restart=on-failure
 
 [Install]
