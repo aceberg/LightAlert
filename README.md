@@ -1,9 +1,10 @@
 [![Main-Docker](https://github.com/aceberg/LightAlert/actions/workflows/main-docker.yml/badge.svg)](https://github.com/aceberg/LightAlert/actions/workflows/main-docker.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/aceberg/LightAlert)](https://goreportcard.com/report/github.com/aceberg/LightAlert)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d5afcbba61b811fa3ddc/maintainability)](https://codeclimate.com/github/aceberg/LightAlert/maintainability)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/aceberg/lightalert)
 
 <h1><a href="https://github.com/aceberg/LightAlert">
-    <img src="https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/logo.png" width="25" />
+    <img src="https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/logo.png" width="35" />
 </a>LightAlert</h1>
 
 Lightweight cron job monitoring 
@@ -14,8 +15,8 @@ Lightweight cron job monitoring
 - [Thanks](https://github.com/aceberg/lightalert#thanks)
 
 
-![Screenshot](https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/Screenshot%202023-02-01%20at%2014-36-39%20LightAlert.png)
-![Screenshot1](https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/Screenshot%202023-02-01%20at%2014-34-35%20LightAlert.png)
+![Screenshot](https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/Screenshot%202023-02-02%20at%2011-55-21%20LightAlert.png)
+![Screenshot1](https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/Screenshot%202023-02-02%20at%2011-56-04%20LightAlert.png)
 
 ## Quick start
 
