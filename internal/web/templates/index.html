@@ -14,10 +14,10 @@
                 <tr>
                     <td><a href="/edit/?hash={{ .Hash }}">{{ .Name }}</a></td>
                     <td>
-                        <a href="http://{{ $.Config.Host }}:{{ $.Config.Port }}/check/?hash={{ .Hash }}" target="_blank">Check</a>
+                        <a href="http://{{ $.Config.HName }}:{{ $.Config.Port }}/check/?hash={{ .Hash }}" target="_blank">Check</a>
                     </td>
                     <td>{{ .Interval }}</td>
-                    <td>{{ range .Alerts }}{{ . }} {{ end }}</td>
+                    <td>{{ range .Alerts }}{{ . }}&nbsp;&nbsp;&nbsp;{{ end }}</td>
                     <td>
                     {{ if .Active }}
                     <i class="bi bi-check-circle-fill" style="color:greenyellow;"></i>

@@ -3,7 +3,6 @@ package web
 import (
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/aceberg/LightAlert/internal/check"
 	"github.com/aceberg/LightAlert/internal/models"
@@ -17,7 +16,7 @@ func saveHostHandler(w http.ResponseWriter, r *http.Request) {
 	oneHost.Name = r.FormValue("name")
 	oneHost.Hash = r.FormValue("hash")
 	oneHost.Interval = r.FormValue("interval")
-	alerts := r.FormValue("alerts")
+	alerts := r.PostForm["alerts"]
 
 	if oneHost.Name == "" {
 		oneHost.Name = oneHost.Hash
@@ -28,9 +27,7 @@ func saveHostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	oneHost.IntSec = check.TimeToSec(oneHost.Interval)
 
-	alertsSlice := strings.Split(alerts, " ")
-
-	for _, a := range alertsSlice {
+	for _, a := range alerts {
 		if a != "" {
 			oneHost.Alerts = append(oneHost.Alerts, a)
 		}

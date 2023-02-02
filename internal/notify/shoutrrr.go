@@ -12,7 +12,7 @@ func send(name, message string, alertMap map[string]string) {
 
 	url, exist := alertMap[name]
 	if exist {
-		err = shoutrrr.Send(url, "Light Alert: "+message)
+		err = shoutrrr.Send(url, "LightAlert: "+message)
 		check.IfError(err)
 	}
 }

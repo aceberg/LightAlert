@@ -21,7 +21,19 @@
                     </tr>
                     <tr>
                         <td>Alerts</td>
-                        <td><input name="alerts" type="text" class="form-control" value="{{ range .Alerts }}{{ . }} {{ end }}"></td>
+                        <td>
+                            {{ range $.AlertCheck }}
+                            {{ if .Check }}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ .Name }}" name="alerts" checked>{{ .Name }}
+                            </div>
+                            {{ else }}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ .Name }}" name="alerts">{{ .Name }}
+                            </div>
+                            {{ end }}
+                            {{ end }}
+                        </td>
                     </tr>
                     <tr>
                         <td><button type="submit" class="btn btn-primary">Save</button></td></form>
@@ -37,14 +49,14 @@
                 <div class="card">
                     <div class="card-body">
                         <samp>
-                            curl "http://{{ $.Config.Host }}:{{ $.Config.Port }}/check/?hash={{ .Hash }}"
+                            curl "http://{{ $.Config.HName }}:{{ $.Config.Port }}/check/?hash={{ .Hash }}"
                         </samp>
                     </div>
                   </div>
                 <br>
                 <div class="alert alert-info" role="alert">
                     <p>● To activate host add the URL above to your cron script</p>
-                    <p>● <b>Alerts</b> - names of alerts from <a href="/config/">Config</a> page (space separated)</p>
+                    <p>● <b>Alerts</b> - names of alerts from <a href="/config/">Config</a> page</p>
                 </div>
                 <br>
                 <form action="/del_host/" method="post">

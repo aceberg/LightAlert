@@ -12,6 +12,7 @@ func Get(path string) models.Conf {
 	var config models.Conf
 
 	viper.SetDefault("DB", "/data/LightAlert/sqlite.db")
+	viper.SetDefault("HNAME", "localhost")
 	viper.SetDefault("HOST", "0.0.0.0")
 	viper.SetDefault("PORT", "8846")
 	viper.SetDefault("SHOW", "25")
@@ -26,6 +27,7 @@ func Get(path string) models.Conf {
 	viper.AutomaticEnv() // Get ENVIRONMENT variables
 
 	config.DB, _ = viper.Get("DB").(string)
+	config.HName, _ = viper.Get("HNAME").(string)
 	config.Host, _ = viper.Get("HOST").(string)
 	config.Port, _ = viper.Get("PORT").(string)
 	config.Show, _ = viper.Get("SHOW").(string)
@@ -43,6 +45,7 @@ func Write(config models.Conf) {
 	viper.SetConfigType("yaml")
 
 	viper.Set("db", config.DB)
+	viper.Set("hname", config.HName)
 	viper.Set("host", config.Host)
 	viper.Set("port", config.Port)
 	viper.Set("show", config.Show)

@@ -2,6 +2,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] - 2023-02-01
+### Added
+- Hostname variable
+- Alerts checkboxes on edit page
+
 ## [0.2.1] - 2023-02-01
 ### Added
 - DB for logs

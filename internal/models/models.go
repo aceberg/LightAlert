@@ -7,6 +7,7 @@ import (
 // Conf - web gui config
 type Conf struct {
 	DB       string
+	HName    string
 	Host     string
 	Port     string
 	Show     string
@@ -43,11 +44,18 @@ type Record struct {
 	State string `db:"STATE"`
 }
 
+// EditAlert - type to dispaly Alert checks
+type EditAlert struct {
+	Name  string
+	Check bool
+}
+
 // GuiData - web gui data
 type GuiData struct {
-	Config  Conf
-	Themes  []string
-	Hosts   []Host
-	Records []Record
-	Len     int
+	Config     Conf
+	Themes     []string
+	Hosts      []Host
+	Records    []Record
+	Len        int
+	AlertCheck []EditAlert
 }

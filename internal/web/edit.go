@@ -3,7 +3,6 @@ package web
 import (
 	// "log"
 	"net/http"
-	"strings"
 
 	"github.com/dchest/uniuri"
 
@@ -15,6 +14,7 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 	var guiData models.GuiData
 	var oneHost models.Host
 	var recNext models.Record
+	var alCheck models.EditAlert
 
 	guiData.Config = AppConfig
 
@@ -31,8 +31,6 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		oneHost = HostsMap[hash]
-		alerts := strings.Join(oneHost.Alerts, " ")
-		oneHost.Alerts = append([]string{}, alerts)
 
 		recNext = models.Record{}
 		for _, rec := range LogRecords {
@@ -47,6 +45,19 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 				recNext = models.Record{}
 			}
 		}
+	}
+
+	for name := range AppConfig.AlertMap {
+		alCheck.Name = name
+		alCheck.Check = false
+
+		for _, alert := range oneHost.Alerts {
+			if alert == name {
+				alCheck.Check = true
+			}
+		}
+
+		guiData.AlertCheck = append(guiData.AlertCheck, alCheck)
 	}
 
 	guiData.Hosts = append(guiData.Hosts, oneHost)
