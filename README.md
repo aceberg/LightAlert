@@ -16,7 +16,6 @@ Lightweight cron job monitoring
 
 
 ![Screenshot](https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/Screenshot%202023-02-02%20at%2011-55-21%20LightAlert.png)
-![Screenshot1](https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/Screenshot%202023-02-02%20at%2011-56-04%20LightAlert.png)
 
 ## Quick start
 
