@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 
+	_ "time/tzdata"
+
 	"github.com/aceberg/LightAlert/internal/check"
 	"github.com/aceberg/LightAlert/internal/models"
 	"github.com/aceberg/LightAlert/internal/web"

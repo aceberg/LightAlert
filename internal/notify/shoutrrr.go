@@ -1,6 +1,8 @@
 package notify
 
 import (
+	"log"
+
 	"github.com/containrrr/shoutrrr"
 
 	"github.com/aceberg/LightAlert/internal/check"
@@ -12,6 +14,9 @@ func send(name, message string, alertMap map[string]string) {
 
 	url, exist := alertMap[name]
 	if exist {
+
+		log.Println("INFO: sending alert - ", message, " to URL:", url)
+
 		err = shoutrrr.Send(url, "LightAlert: "+message)
 		check.IfError(err)
 	}
