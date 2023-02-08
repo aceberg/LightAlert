@@ -8,7 +8,7 @@ COPY go.sum /src/
 RUN cd /src/cmd/LightAlert/ && CGO_ENABLED=0 go build -o /LightAlert .
 
 
-FROM alpine
+FROM scratch
 
 WORKDIR /data/LightAlert
 WORKDIR /app

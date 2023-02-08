@@ -3,7 +3,7 @@ module github.com/aceberg/LightAlert
 go 1.19
 
 require (
-	github.com/containrrr/shoutrrr v0.7.0
+	github.com/containrrr/shoutrrr v0.7.1
 	github.com/dchest/uniuri v1.2.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/spf13/viper v1.15.0
