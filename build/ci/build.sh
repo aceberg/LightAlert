@@ -3,7 +3,7 @@
 PKGNAME=lightalert
 PKGDIR=/opt/$PKGNAME
 
-cd cmd/$PKGNAME/ && CGO_ENABLED=0 go build -o ../../$PKGNAME .
+cd cmd/LightAlert/ && CGO_ENABLED=0 go build -o ../../$PKGNAME .
 cd ../../
 
 umask 0022
