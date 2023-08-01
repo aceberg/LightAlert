@@ -7,7 +7,9 @@
     <img src="https://raw.githubusercontent.com/aceberg/LightAlert/main/assets/logo.png" width="35" />
 </a>LightAlert</h1>
 
-Lightweight cron job monitoring 
+Lightweight cron job monitoring    
+> [!WARNING]  
+> This is still WIP and can't guarantee correct work in all cases
 
 - [Quick start](https://github.com/aceberg/lightalert#quick-start)
 - [Config](https://github.com/aceberg/lightalert#config)
