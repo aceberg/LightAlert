@@ -17,7 +17,8 @@ func send(name, message string, alertMap map[string]string) {
 
 		log.Println("INFO: sending alert - ", message, " to URL:", url)
 
-		err = shoutrrr.Send(url, "LightAlert: "+message)
+		msg := "LightAlert: "+message
+		err = shoutrrr.Send(url, msg)
 		check.IfError(err)
 	}
 }
